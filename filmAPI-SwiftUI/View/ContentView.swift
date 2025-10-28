@@ -52,6 +52,23 @@ struct ContentView: View {
                 }
             }
             Tab("About", systemImage: "info.circle", value: .Favourite) {
+                NavigationStack {
+                    List {
+                        Section(header: Text("Project")) {
+                            Text("Bu uygulama, modern iOS geliştirme pratiklerini pekiştirmek amacıyla SwiftUI kullanılarak geliştirilmiş bir portfolyo projesidir.")
+                        }
+                        Section(header: Text("Data Source")) {
+                            Link("Tüm data'lar OMDB API tarafından sağlanmaktadır.",
+                                 destination: URL(string: "https://www.omdbapi.com/")!)
+                        }
+                        Section(header: Text("Developer")) {
+                            Link("Linkedin",
+                                 destination: URL(string: "https://www.linkedin.com/in/gokalpgurocak/")!)
+                            Link("Github",
+                                 destination: URL(string: "https://github.com/gurocakgokalp")!)
+                        }
+                    }.navigationTitle("About")
+                }
                 
             }
             Tab(value: .Search ,role: .search) {
@@ -64,7 +81,9 @@ struct ContentView: View {
                                         ImageViewFilm(image: movie.poster).frame(width: 100)
                                         VStack(alignment: .leading, spacing: 1){
                                             Text(movie.title).font(.title2).bold().foregroundStyle(.primary).foregroundStyle(.white)
+                                                .multilineTextAlignment(.leading)
                                             Text("\(movie.year) - \(movie.type)").foregroundStyle(.gray)
+                                                .multilineTextAlignment(.leading)
                                         }.padding()
                                         Spacer()
                                     }
