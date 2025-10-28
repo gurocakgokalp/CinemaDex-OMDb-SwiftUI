@@ -39,6 +39,6 @@ struct idSearchFilmsResult: Decodable {
     let Director: String
     let Plot: String
     let Actors: String
-    let Response: Bool
+    let Response: String
 }
 

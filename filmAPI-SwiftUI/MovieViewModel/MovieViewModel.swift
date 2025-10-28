@@ -6,27 +6,44 @@
 //
 
 import Foundation
-import SwiftUI
+import Combine
 
 class MovieMainViewModel: ObservableObject {
     
     @Published var movies = [SearchingMovieViewModel]()
-    @Published var movieDetail: idSearchingMovieViewModel?
-    
+    @Published var movieDetail: idSearchingMovieViewModel?    
     func fetchSearchng(title: String) async {
         do{
             let fetchedSearch = try await Webservice().fetchSearchingDatas(url: "https://www.omdbapi.com/?s=\(title)&apikey=aac83354")
-            self.movies
+            let lastViewModel = fetchedSearch.Search.map { SearchingFilm in
+                return SearchingMovieViewModel(movie: SearchingFilm)
+            }
+            
+            //main threadde çalıştırayım ki mor hatayı almayayım (btk daki mor hata)
+            DispatchQueue.main.async {
+                self.movies = lastViewModel
+            }
+            
         } catch let error {
             print(error.localizedDescription)
         }
     }
     
     func fetchId(id: String) async {
-        
+        do {
+            let fetchedId = try await Webservice().fetchIDDatas(url: "https://www.omdbapi.com/?i=\(id)&plot=full&apikey=aac83354")
+            print("https://www.omdbapi.com/?i=\(id)&plot=full&apikey=aac83354")
+            self.movieDetail = idSearchingMovieViewModel(movie: fetchedId)
+            print(fetchedId.Title)
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
+
     
 }
+
+
 
 struct SearchingMovieViewModel: Identifiable {
     var id: String {
