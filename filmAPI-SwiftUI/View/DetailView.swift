@@ -43,6 +43,7 @@ struct DetailView: View {
                             Text(mainViewModel.movieDetail?.title ?? "...").fontWeight(.heavy).font(.largeTitle)
                                 .multilineTextAlignment(.trailing)
                             Text(mainViewModel.movieDetail?.released ?? "...")
+                            
                             HStack{
                                 Image("imdb").resizable().scaledToFit().frame(width: 30).clipShape(RoundedRectangle(cornerRadius: 10))
                                 Text(mainViewModel.movieDetail?.imbdRating ?? "...").bold().foregroundStyle(.gray)
