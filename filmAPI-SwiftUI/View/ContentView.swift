@@ -15,6 +15,7 @@ enum TabViewSelection {
 
 struct ContentView: View {
     @State var tabState: TabViewSelection = .Home
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var mainViewModel = MovieMainViewModel()
     @ObservedObject var mainViewModel2 = MovieMainViewModel()
     @ObservedObject var mainViewModel3 = MovieMainViewModel()
@@ -80,7 +81,7 @@ struct ContentView: View {
                                     HStack{
                                         ImageViewFilm(image: movie.poster).frame(width: 100)
                                         VStack(alignment: .leading, spacing: 1){
-                                            Text(movie.title).font(.title2).bold().foregroundStyle(.primary).foregroundStyle(.white)
+                                            Text(movie.title).font(.title2).bold().foregroundStyle(colorScheme == .dark ? .white: .black).foregroundStyle(.white)
                                                 .multilineTextAlignment(.leading)
                                             Text("\(movie.year) - \(movie.type)").foregroundStyle(.gray)
                                                 .multilineTextAlignment(.leading)

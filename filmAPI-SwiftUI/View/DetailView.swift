@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DetailView: View {
+    @Environment(\.colorScheme) var colorScheme
     @ObservedObject var mainViewModel = MovieMainViewModel()
     @ObservedObject var imageDClient = ImageDownloadClient()
     var imdbId = String()
@@ -19,12 +20,12 @@ struct DetailView: View {
     var body: some View {
         VStack {
             checkImage()
-                .resizable().clipShape(RoundedRectangle(cornerRadius: 100)).opacity(0.8)
+                .resizable().clipShape(RoundedRectangle(cornerRadius: 0)).opacity(0.8)
                 .aspectRatio(contentMode: .fit).ignoresSafeArea().overlay(alignment: .bottom, content: {
-                    RoundedRectangle(cornerRadius: 100)
+                    RoundedRectangle(cornerRadius: 0)
                         .foregroundStyle(LinearGradient(stops: [
                             .init(color: .white.opacity(0), location: 0.1),
-                            .init(color: .black.opacity(1.5), location: 1)
+                            .init(color: colorScheme == .dark ? .black.opacity(1.5):.white.opacity(1.2), location: 1)
                         ]
                         , startPoint: .top, endPoint: .bottom))
                 }).offset(y: -400).overlay{
@@ -33,7 +34,7 @@ struct DetailView: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .foregroundStyle(LinearGradient(stops: [
                                     .init(color: .white.opacity(0), location: 0.1),
-                                    .init(color: .black.opacity(0.8), location: 1)
+                                    .init(color: colorScheme == .dark ? .black.opacity(0.8):.white.opacity(0.5), location: 1)
                                 ]
                                 , startPoint: .top, endPoint: .bottom))
                         })
