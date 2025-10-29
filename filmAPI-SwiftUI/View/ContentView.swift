@@ -96,7 +96,9 @@ struct ContentView: View {
                         .searchable(text: $searching)
                         .onChange(of: searching){
                             Task {
-                                await mainViewModel.fetchSearchng(title: searching)
+                                //addingPercentEncoding -> url formatına misal boşluğa %20 eklemesi gibi şeyleri yapıyor
+                                //trimmingCharacters' de aradaki boşlukları ve yeni satırları kaldırıyor ki hatali sonuc donmesin. bu silinen boslulklar yerine de iste %20 falan ekleniyor
+                                await mainViewModel.fetchSearchng(title: searching.trimmingCharacters(in: .whitespacesAndNewlines).addingPercentEncoding(withAllowedCharacters: .urlHostAllowed) ?? searching)
                             }
                         }
                 }
