@@ -34,7 +34,7 @@ struct DetailView: View {
                             RoundedRectangle(cornerRadius: 15)
                                 .foregroundStyle(LinearGradient(stops: [
                                     .init(color: .white.opacity(0), location: 0.1),
-                                    .init(color: colorScheme == .dark ? .black.opacity(0.8):.white.opacity(0.5), location: 1)
+                                    .init(color: colorScheme == .dark ? .black.opacity(0.8):.white.opacity(0), location: 1)
                                 ]
                                 , startPoint: .top, endPoint: .bottom))
                         })
